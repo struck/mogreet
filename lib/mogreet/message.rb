@@ -17,7 +17,8 @@ class Mogreet::Message
     # user defined parameters (udp). The parameters enable you to customize your 
     # message flow with our product team.
     def send(options)
-      response = HTTParty.get("https://api.mogreet.com/moms/transaction.send", query: Mogreet.config.merge(options).to_hash)
+      options[:endpoint] ||= Mogreet.default_endpoint("transaction.send")
+      response = Mogreet.get_response options
       Mogreet::Response::TransactionSend.new Crack::XML.parse(response.body)['response']
     end
 

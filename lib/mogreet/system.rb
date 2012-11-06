@@ -6,14 +6,8 @@ class Mogreet::System
     # email if there is any interruption to our services. Ping is useful to test your 
     # credentials and whiteMlisted IPs.
     def ping(options={})
-      response = HTTParty.get("https://api.mogreet.com/moms/system.ping", query: Mogreet.config.merge(options).to_hash)
-      Mogreet::Response::TransactionSend.new Crack::XML.parse(response.body)['response']
-    end
-
-    # Not available
-    # Stubbed out because this method is documented but unavailable in the api docs.
-    def status(status)
-      raise "Not available"
+      options[:endpoint] ||= Mogreet.default_endpoint("system.ping")
+      Mogreet::Response::SystemPing.new Mogreet.get_response(options)
     end
 
   end
