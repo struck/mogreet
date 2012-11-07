@@ -9,6 +9,11 @@ class Mogreet::System
       options[:endpoint] ||= Mogreet.default_endpoint("system.ping")
       Mogreet::Response::SystemPing.new Mogreet.get_response(options)
     end
+    def ping!(options={})
+      response = ping(options)
+      response.raise_response_errors
+      response
+    end
 
   end
 end

@@ -7,9 +7,12 @@ require "mogreet/version"
 require "mogreet/config"
 require "mogreet/errors"
 
-require "mogreet/system"
-require "mogreet/message"
 require "mogreet/response/base"
 require "mogreet/response/transaction_send"
 require "mogreet/response/system_ping"
 
+module Mogreet
+  autoload :System, 'mogreet/system'
+  autoload :Transaction, 'mogreet/transaction'
+  autoload :User, 'mogreet/user'
+end

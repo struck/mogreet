@@ -19,8 +19,17 @@ class Mogreet::User
     end
 
     # The info method returns the user carrier and handset info if available.
-    def info(options)
-      raise 'todo'
+    # Arguments:
+    #   number: A mobile number (MSISDN). 
+    def info(options={})
+      # options[:number] ||= options.delete(:phone) if options.has_key? :phone
+      options[:endpoint] ||= Mogreet.default_endpoint("user.info")
+      Mogreet::Response::Base.new Mogreet.get_response(options)
+    end
+    def info!(options={})
+      response = info(options)
+      response.raise_response_errors
+      response
     end
 
     # The transactions method returns the user’s transactions (open and closed). This 

@@ -7,6 +7,8 @@ module Mogreet
       @code = code
     end
   end
+  class ForbiddenException < RejectedException
+  end
   class UnknownRequestException < ArgumentError
     # extend RequestException
     attr_reader :code
@@ -15,13 +17,7 @@ module Mogreet
       @code = code
     end
   end
-  class InvalidRequestException < ArgumentError
-    # extend RequestException
-    attr_reader :code
-    def initialize(msg=nil, code=nil)
-      super(msg)
-      @code = code
-    end
+  class InvalidRequestException < UnknownRequestException
   end
   class InternalErrorException < StandardError
     # extend RequestException
@@ -31,12 +27,6 @@ module Mogreet
       @code = code
     end
   end
-  class UserException < StandardError
-    # extend RequestException
-    attr_reader :code
-    def initialize(msg=nil, code=nil)
-      super(msg)
-      @code = code
-    end
+  class UserException < InternalErrorException
   end
 end
