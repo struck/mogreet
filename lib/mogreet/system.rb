@@ -5,12 +5,14 @@ class Mogreet::System
     # servers. You do not have to implement a monitoring system; we’ll notify you via 
     # email if there is any interruption to our services. Ping is useful to test your 
     # credentials and whiteMlisted IPs.
-    def ping(options={})
-      options[:endpoint] ||= Mogreet.default_endpoint("system.ping")
-      Mogreet::Response::SystemPing.new Mogreet.get_response(options)
+    def ping(query=nil, options={})
+      # options[:endpoint] ||= Mogreet.endpoint("system.ping")
+      # options[:method] ||= "system.ping" unless options.has_key? :endpoint
+      method = "system.ping"
+      Mogreet::Response::SystemPing.new Mogreet.get_response(method, query, options)
     end
-    def ping!(options={})
-      response = ping(options)
+    def ping!(query=nil, options={})
+      response = ping(query, options)
       response.raise_response_errors
       response
     end

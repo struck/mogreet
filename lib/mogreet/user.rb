@@ -21,13 +21,15 @@ class Mogreet::User
     # The info method returns the user carrier and handset info if available.
     # Arguments:
     #   number: A mobile number (MSISDN). 
-    def info(options={})
+    def info(query=nil, options={})
       # options[:number] ||= options.delete(:phone) if options.has_key? :phone
-      options[:endpoint] ||= Mogreet.default_endpoint("user.info")
-      Mogreet::Response::Base.new Mogreet.get_response(options)
+      # options[:endpoint] ||= Mogreet.endpoint("user.info")
+      # options[:method] ||= "user.info" unless options.has_key? :endpoint
+      method = "user.info"
+      Mogreet::Response::Base.new Mogreet.get_response(method, query, options)
     end
-    def info!(options={})
-      response = info(options)
+    def info!(query=nil, options={})
+      response = info(query, options)
       response.raise_response_errors
       response
     end
