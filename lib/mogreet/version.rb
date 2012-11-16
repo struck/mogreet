@@ -3,5 +3,5 @@
 # server as versioned in the documentation:
 # http://cl.ly/1B1x1b3o2C0V
 module Mogreet
-  VERSION = "3.9.2"
+  VERSION = "3.9.3"
 end
