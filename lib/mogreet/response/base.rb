@@ -18,9 +18,6 @@ module Mogreet::Response
     def raise_response_errors
       return unless self.status.to_sym == :error
 
-      puts "RAISING MOGREET ERROR ON RESPONSE:"
-      puts self.to_yaml
-
       case self.code.to_i
       when 400 then raise Mogreet::RejectedException.new(self.message, self.code)
       when 0, 403 then raise Mogreet::ForbiddenException.new(self.message, self.code)
