@@ -35,10 +35,6 @@ class Mogreet::Transaction
     #   endpoint: A custom endpoint url. (Mogreet will set up custom client endpoints for some circumstances)
     # 
     def send(query=nil, options={})
-      # options[:endpoint] = Mogreet.endpoint("transaction.send") unless options.has_key?(:endpoint)
-      # options[:method] ||= "transaction.send" unless options.has_key? :endpoint
-      # puts "-------------"
-      # puts options
       method = "transaction.send"
       Mogreet::Response::TransactionSend.new Mogreet.get_response(method, query, options)
     end

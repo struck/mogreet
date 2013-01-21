@@ -44,20 +44,14 @@ module Mogreet
   end
 
   def self.get_response(method, params=nil, options={})
-    # options = proxy_options.merge options
-    # proxy_options = self.proxy_option.merge options.slice(:http_proxyaddr, :http_proxyport, :http_proxyuser, :http_proxypass)
+    # Resolve the endpoint. 
+    endpoint = options.delete(:endpoint) || self.endpoint(method)
 
     # Construct the query string options
     (options[:params] ||= {}).merge! (params || {})
     options[:params] = self.auth.merge options[:params]
 
-    # Resolve the endpoint. Caller can pass :endpoint as full url or 
-    # :method which will construct the endpoint automatically.
-    # endpoint = options.delete :endpoint
-    # endpoint = self.endpoint options.delete(:method) if endpoint.blank?
-    endpoint = options.delete(:endpoint) || self.endpoint(method)
-
-    # response = HTTParty.get(endpoint, options)
+    # Handle a proxy
     if config.proxy_url
       # set the proxy
       save_proxy = RestClient.proxy
@@ -67,7 +61,6 @@ module Mogreet
     # reset to the former proxy
     RestClient.proxy = save_proxy if config.proxy_url
     Crack::XML.parse(response.body)['response']
-
   end
 
 end
