@@ -3,7 +3,7 @@ module Mogreet
     # extend RequestException
     attr_reader :code
     def initialize(msg=nil, code=nil)
-      super(msg)
+      super("#{msg} (Error Code #{code})")
       @code = code
     end
   end
@@ -13,7 +13,7 @@ module Mogreet
     # extend RequestException
     attr_reader :code
     def initialize(msg=nil, code=nil)
-      super(msg)
+      super("#{msg} (Error Code #{code})")
       @code = code
     end
   end
@@ -23,7 +23,7 @@ module Mogreet
     # extend RequestException
     attr_reader :code
     def initialize(msg=nil, code=nil)
-      super(msg)
+      super("#{msg} (Error Code #{code})")
       @code = code
     end
   end
