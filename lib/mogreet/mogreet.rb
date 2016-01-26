@@ -5,17 +5,17 @@ module Mogreet
   def self.config
     @@config ||= Config.new
   end
-  
+
   def self.configure
     @@config = Config.new
     yield config
   end
-    
+
   def self.endpoint(method)
     File.join (config.api_url || "https://api.mogreet.com/moms/"), method
   end
 
-  # Returns a hash containing the client_id and token 
+  # Returns a hash containing the client_id and token
   def self.auth
     {
       client_id: config.client_id,
@@ -44,8 +44,9 @@ module Mogreet
   end
 
   def self.get_response(method, params=nil, options={})
-    # Resolve the endpoint. 
+    # Resolve the endpoint.
     endpoint = options.delete(:endpoint) || self.endpoint(method)
+    campaign_id = options.delete(:campaign_id) || self.campaign_id(method)
 
     # Construct the query string options
     (options[:params] ||= {}).merge! (params || {})
